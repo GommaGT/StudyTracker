@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <script src="https://kit.fontawesome.com/61b869afa3.js" crossorigin="anonymous"></script>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+
+    <!-- Include Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+
+    <title>StudyTracker V2 | Calendar</title>
+
+
+
+    <style>
+    </style>
+</head>
+<body>
+    <!-- Sidebar Navigation -->
+    <nav>
+        <h2 class="titleMain">StudyTracker</h2>
+        <div class="accountInformation">
+            <img src="media/icon.png">
+            <p style="font-size: 16px;">Welcome back,</p>
+            <h4 id="username" style="font-size: 19px;">ADMIN</h4>
+        </div>
+        <ul>
+            <li><i class="fa-solid fa-chart-line"></i>  <a href="index.html">Home</a></li>
+            <li><i class="fa-regular fa-calendar"></i>  <a href="#">Calendar</a></li>
+            <li><i class="fa-solid fa-chalkboard-user"></i>  <a href="stundenplan.html">Timetable</a></li>
+            <li><i class="fa-regular fa-pen-to-square"></i>  <a href="arbeiten.html">Exams</a></li>
+            <li><i class="fa-solid fa-sliders"></i>  <a href="einstellungen.html">Settings</a></li>
+        </ul>
+    </nav>
+
+    <!-- Main Content Area -->
+    <main>
+        <div class="calendar-container">
+            <h2 id="monthYear"></h2>
+            <div class="calendar">
+                <div class="days-of-week">
+                    <div>Mon</div><div>Tue</div><div>Wed</div><div>Thu</div><div>Fri</div><div>Sat</div><div>Sun</div>
+                </div>
+                <div id="calendarDays" class="days"></div>
+            </div>
+        </div>
+
+        <div id="ctrlElements">
+
+            <div id="btn-subject">
+                <div id="btn-participation">
+                    <button id="addParticipation">✅ Add</button>
+                    <button id="remParticipation">❌ Remove</button>
+                </div>    
+            </div>
+        </div>
+
+    </main>
+    
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            let now = new Date();
+            let selectedDate = `${now.getFullYear()}-${now.getMonth()}-${now.getDate()}`; // Default to today
+        
+            generateCalendar();
+        
+            function generateCalendar() {
+                const calendarDays = document.getElementById("calendarDays");
+                const monthYear = document.getElementById("monthYear");
+        
+                const year = now.getFullYear();
+                const month = now.getMonth();
+                const today = now.getDate();
+        
+                const firstDay = new Date(year, month, 1).getDay();
+                const lastDate = new Date(year, month + 1, 0).getDate();
+                const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+        
+                monthYear.textContent = `${monthNames[month]} ${year}`;
+                calendarDays.innerHTML = "";
+        
+                const adjustedFirstDay = firstDay === 0 ? 6 : firstDay - 1;
+        
+                let participationData = JSON.parse(localStorage.getItem("participationData")) || {};
+        
+                for (let i = 0; i < adjustedFirstDay; i++) {
+                    const emptyDiv = document.createElement("div");
+                    calendarDays.appendChild(emptyDiv);
+                }
+        
+                for (let day = 1; day <= lastDate; day++) {
+                    const dayDiv = document.createElement("div");
+                    dayDiv.textContent = day;
+        
+                    let participationCount = participationData[`${year}-${month}-${day}`] || 0;
+        
+                    if (isWeekend(year, month, day)) {
+                        dayDiv.style.backgroundColor = "gray";
+                    } else {
+                        dayDiv.style.backgroundColor = getParticipationColor(participationCount);
+                    }
+        
+                    if (`${year}-${month}-${day}` === selectedDate) {
+                        dayDiv.style.border = "3px solid cyan"; // Highlight selected day
+                    }
+        
+                    dayDiv.setAttribute("data-date", `${year}-${month}-${day}`);
+                    dayDiv.addEventListener("click", function () {
+                        selectDay(`${year}-${month}-${day}`);
+                    });
+        
+                    calendarDays.appendChild(dayDiv);
+                }
+            }
+        
+            function isWeekend(year, month, day) {
+                const date = new Date(year, month, day);
+                return date.getDay() === 6 || date.getDay() === 0;
+            }
+        
+            function getParticipationColor(count) {
+                if (count === 0) return "#FF4D4D"; // Red
+                if (count === 1) return "#FFA500"; // Orange
+                if (count === 2) return "#FFD700"; // Yellow
+                if (count === 3) return "#4CAF50"; // Green
+                return "#FFD700"; // Gold (for 3+)
+            }
+        
+            function selectDay(date) {
+                selectedDate = date;
+                generateCalendar();
+            }
+        
+            function updateParticipation(change) {
+                let participationData = JSON.parse(localStorage.getItem("participationData")) || {};
+        
+                if (!participationData[selectedDate]) {
+                    participationData[selectedDate] = 0;
+                }
+        
+                participationData[selectedDate] = Math.max(0, participationData[selectedDate] + change);
+        
+                localStorage.setItem("participationData", JSON.stringify(participationData));
+        
+                generateCalendar();
+            }
+        
+            document.getElementById("addParticipation").addEventListener("click", function() {
+                updateParticipation(1);
+            });
+        
+            document.getElementById("remParticipation").addEventListener("click", function() {
+                updateParticipation(-1);
+            });
+        });
+
+
+        function updateTitle() {
+    let subjects = JSON.parse(localStorage.getItem("subjects")) || [];
+    let currentDay = new Date().toLocaleDateString('de-DE', { weekday: 'long' }).charAt(0).toUpperCase() + 
+                     new Date().toLocaleDateString('de-DE', { weekday: 'long' }).slice(1); // Ensure first letter is uppercase
+
+    let now = new Date();
+    let currentTime = now.getHours().toString().padStart(2, '0') + ":" + now.getMinutes().toString().padStart(2, '0'); // Ensure HH:MM format
+
+    console.log("Current Day:", currentDay); // Debugging
+    console.log("Current Time:", currentTime); // Debugging
+
+    let currentSubject = subjects.find(sub => {
+    console.log(`Checking Subject: ${sub.name}`);
+    console.log(`Day: ${sub.day} === ${currentDay} ?`, sub.day.trim() === currentDay.trim());
+    console.log(`Start: ${sub.startTime} <= ${currentTime} ?`, sub.startTime.trim() <= currentTime.trim());
+    console.log(`End: ${sub.endTime} >= ${currentTime} ?`, sub.endTime.trim() >= currentTime.trim());
+
+    return sub.day.trim().toLowerCase() === currentDay.trim().toLowerCase() &&
+           sub.startTime.trim() <= currentTime.trim() &&
+           sub.endTime.trim() >= currentTime.trim();
+});
+
+if (currentSubject) {
+    console.log("✅ Found Current Subject:", currentSubject.name);
+} else {
+    console.log("❌ No Current Subject Found");
+}
+
+
+    let titleElement = document.getElementById("streakTitle");
+    
+    if (currentSubject) {
+        titleElement.textContent = `STREAK Calendar - ${currentSubject.name}`;
+        console.log("Current Subject Found:", currentSubject.name); // Debugging
+    } else {
+        titleElement.textContent = "STREAK Calendar - No Current Classes";
+        console.log("No Current Subject Found"); // Debugging
+    }
+}
+
+// Run the function when the page loads
+document.addEventListener("DOMContentLoaded", updateTitle);
+
+        </script>
+</body>
+</html>

@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <script src="https://kit.fontawesome.com/61b869afa3.js" crossorigin="anonymous"></script>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+
+    <!-- Include Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+
+    <title>StudyTracker V2 | Index</title>
+    
+    
+    <style>
+    
+    
+     /* Reset basic styles */
+ * {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Montserrat", serif;
+    font-optical-sizing: auto;
+    font-style: normal;
+  color: black;
+}
+
+body{
+  background-color: #f8f8f8;
+  height: 100% !important;
+}
+
+/* Sidebar Navigation */
+nav {
+  width: 250px;
+  height: 97%;
+  background-color: white;
+  color: black;
+  margin: 2% 0% 2% 2%;
+  padding: 20px;
+  position: fixed;
+  border-radius: 15px;
+}
+nav h2 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.accountInformation{margin-bottom: 25px; text-align: center;}
+
+.accountInformation img{
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  margin-bottom: 5px;
+}
+
+nav ul {
+  list-style: none;
+  padding-left: 0;
+}
+nav ul li {
+  margin-bottom: 20px;
+  margin-left: 65px;
+}
+nav ul li a {
+  color: black;
+  text-decoration: none;
+  font-size: 18px;
+}
+
+/* Main Content Area */
+main {
+  margin-left: 250px;
+  padding: 30px;
+}
+
+/* Account Summary */
+section.account-summary {
+  margin-bottom: 30px;
+}
+section.account-summary h3 {
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+.account-cards {
+  display: flex;
+  gap: 20px;
+}
+.card {
+  background-color: #ecf0f1;
+  padding: 20px;
+  border-radius: 8px;
+  width: 45%;
+}
+.card h4 {
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+.card p {
+  font-size: 22px;
+  font-weight: bold;
+}
+
+/* Recent Expenses */
+section.recent-expenses {
+  margin-bottom: 30px;
+}
+section.recent-expenses h3 {
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: #ecf0f1;
+  border-radius: 8px;
+}
+th, td {
+  padding: 15px;
+  text-align: left;
+}
+th {
+  background-color: #34495e;
+  color: white;
+}
+tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+/* Action Buttons */
+section.actions {
+  display: flex;
+  gap: 20px;
+}
+.actions .btn {
+  padding: 15px 30px;
+  background-color: #3498db;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+}
+.actions .btn:hover {
+  background-color: #4081ad;
+}
+
+.titleMain{
+  text-align: center;
+  font-family: "Montserrat", serif;
+    font-optical-sizing: auto;
+    font-style: normal;
+}
+
+#upper-flex{
+  display: flex;
+  justify-content: space-between;
+  padding: 0px 25px;
+  width: 100% !important;
+}
+
+#upper-flex div{
+  width: 50%;
+}
+
+#stats{
+  background-color: white;
+  padding: 10px 10px 10px 25px;
+  margin: 25px 15px 15px 15px;
+  border-radius: 15px;
+  width: 100%;
+  height: 100%;
+}
+
+#stats p{
+  font-size: 18px;
+}
+#stats strong{
+  font-size: 20px;
+}
+
+#line-chart1{
+  background-color: white;
+  padding: 10px;
+  margin: 25px 15px 15px 15px;
+  border-radius: 15px;
+  width: 100%;
+  height: 100%;
+}
+
+
+#lower-flex{
+  display: flex;
+  justify-content: space-between;
+  padding: 0px 25px;
+  width: 100% !important;
+}
+
+#lower-flex div{
+  width: 50%;
+}
+
+#pie-chart1{
+  background-color: white;
+  padding: 10px;
+  margin: 25px 15px 15px 15px;
+  border-radius: 15px;
+  width: 100%;
+  height: 100%;
+}
+
+#quests{
+  background-color: white;
+  padding: 10px;
+  margin: 25px 15px 15px 15px;
+  border-radius: 15px;
+  width: 100%;
+  height: 100%;
+}
+
+#quests div{
+  background-color: #f8f8f8;
+  margin-bottom: 15px;
+  border-radius: 10px;
+  width: 100%;
+  height: 100%;
+}
+
+.QuestContent{
+  width: 65%;
+  align-self: left;
+  text-align: left;
+  padding-left: 20px;
+}
+
+
+#flexMain {
+  display: flex;
+  flex-direction: column; /* Ensures vertical stacking */
+  justify-content: flex-start;
+  align-items: stretch; /* Ensures full width */
+  padding: 0px 25px;
+}
+
+
+.calendar-container {
+  text-align: center;
+  background: white;
+  padding: 30px;
+  border-radius: 8px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+  max-width: 600px;
+  margin: 35px 0px 0px 65px;
+  flex: auto;
+}
+
+.calendar {
+  display: grid;
+  grid-template-rows: auto 1fr;
+  gap: 10px;
+}
+
+.days-of-week, .days {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 8px;
+}
+
+.days-of-week div {
+  font-weight: bold;
+  padding: 15px;
+}
+
+.days div {
+  padding: 20px;
+  text-align: center;
+  border-radius: 5px;
+  color: white;
+  font-weight: bold;
+}
+
+.today {
+  border: 3px solid black;
+}
+
+.weekend {
+  background: #6b6969 !important;
+  color: black !important;
+}
+
+
+#ctrlElements{
+  flex: right;
+  background-color: #397ba7;
+  
+}
+        body {
+            font-family: "Montserrat", sans-serif;
+            background-color: #f7f7f7;
+            text-align: center;
+        }
+        .container {
+            width: 90%;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+        }
+        input, select, button {
+            margin: 5px;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+        }
+        input, select {
+            width: 80%;
+            background-color: #F7F7F7;
+        }
+        .timetable {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 10px;
+            margin-top: 20px;
+            text-align: left;
+        }
+        .day-column {
+            background: #f7f7f7;
+            padding: 10px;
+            border-radius: 8px;
+            min-height: 200px;
+        }
+        .subject {
+            background: rgb(228, 227, 224);
+            padding: 10px;
+            border-radius: 5px;
+            margin-top: 5px;
+        } 
+    </style>
+</head>
+<body>
+    <!-- Sidebar Navigation -->
+    <nav>
+        <h2 class="titleMain">StudyTracker</h2>
+        <div class="accountInformation">
+            <img src="media/icon.png">
+            <p style="font-size: 16px;">Welcome back,</p>
+            <h4 id="username" style="font-size: 19px;">ADMIN</h4>
+        </div>
+        <ul>
+            <li><i class="fa-solid fa-chart-line"></i>  <a href="index.html">Home</a></li>
+            <li><i class="fa-regular fa-calendar"></i>  <a href="calendar.html">Calendar</a></li>
+            <li><i class="fa-solid fa-chalkboard-user"></i>  <a href="#">Timetable</a></li>
+            <li><i class="fa-regular fa-pen-to-square"></i>  <a href="arbeiten.html">Exams</a></li>
+            <li><i class="fa-solid fa-sliders"></i>  <a href="einstellungen.html">Settings</a></li>
+        </ul>
+    </nav>
+
+    <!-- Main Content Area -->
+    <main >
+        <div>
+            <h1>Stundenplan</h1>
+            <!-- Button, um das Formular zum Hinzufügen eines Fachs ein- oder auszublenden -->
+            <button id="toggleAddSubjectBtn">
+                <i class="fa-regular fa-calendar-plus"></i> Neues Fach hinzufügen
+            </button>
+        </div>
+
+        <!-- Das Formular zum Hinzufügen eines Fachs, zunächst unsichtbar -->
+        <div class="container" id="addSubjectContainer" style="display: none;">
+            <h2>Neues Fach hinzufügen</h2>
+            <select id="dayOfWeek">
+                <option value="Montag">Montag</option>
+                <option value="Dienstag">Dienstag</option>
+                <option value="Mittwoch">Mittwoch</option>
+                <option value="Donnerstag">Donnerstag</option>
+                <option value="Freitag">Freitag</option>
+            </select>
+            <input type="text" id="subjectName" placeholder="Fachname">
+            <input type="text" id="teacherName" placeholder="Lehrer">
+            <input type="text" id="room" placeholder="Raum">
+            <input type="text" id="notes" placeholder="Notizen">
+            <input type="time" id="startTime">
+            <input type="time" id="endTime">
+            <button id="addSubjectBtn">Fach hinzufügen</button>
+        </div>
+
+            
+    <div class="container">
+        <h2>Dein Stundenplan</h2>
+        <div class="timetable" id="schedule">
+            <div class="day-column" id="Montag"><strong>Montag</strong></div>
+            <div class="day-column" id="Dienstag"><strong>Dienstag</strong></div>
+            <div class="day-column" id="Mittwoch"><strong>Mittwoch</strong></div>
+            <div class="day-column" id="Donnerstag"><strong>Donnerstag</strong></div>
+            <div class="day-column" id="Freitag"><strong>Freitag</strong></div>
+        </div>
+    </div>
+
+    <script>
+document.addEventListener("DOMContentLoaded", () => {
+    // Den Button zum Anzeigen des Formulars
+    const toggleButton = document.getElementById("toggleAddSubjectBtn");
+
+    // Das Formular, das ein- und ausgeblendet werden soll
+    const addSubjectContainer = document.getElementById("addSubjectContainer");
+
+    // Wenn der Button geklickt wird, schalte das Formular sichtbar oder unsichtbar
+    toggleButton.addEventListener("click", () => {
+        if (addSubjectContainer.style.display === "none" || addSubjectContainer.style.display === "") {
+            addSubjectContainer.style.display = "block";
+            setTimeout(() => addSubjectContainer.classList.add("visible"), 10);  // Sanfter Übergang
+        } else {
+            addSubjectContainer.classList.remove("visible");
+            setTimeout(() => addSubjectContainer.style.display = "none", 300);  // Sanfter Übergang
+        }
+    });
+
+    // Event Listener für den "Fach hinzufügen" Button
+    document.getElementById("addSubjectBtn").addEventListener("click", addSubject);
+});
+
+// Funktion zum Hinzufügen eines Fachs
+function addSubject() {
+    let subject = {
+        id: Date.now(),
+        day: document.getElementById("dayOfWeek").value,
+        name: document.getElementById("subjectName").value,
+        teacher: document.getElementById("teacherName").value,
+        room: document.getElementById("room").value,
+        notes: document.getElementById("notes").value,
+        startTime: document.getElementById("startTime").value,
+        endTime: document.getElementById("endTime").value
+    };
+
+    if (!subject.name || !subject.startTime || !subject.endTime) {
+        alert("Bitte mindestens Fachname und Zeiten eingeben!");
+        return;
+    }
+
+    let subjects = JSON.parse(localStorage.getItem("subjects")) || [];
+    subjects.push(subject);
+    localStorage.setItem("subjects", JSON.stringify(subjects));
+    loadSubjects();
+}
+
+// Funktion zum Laden der Fächer
+function loadSubjects() {
+    let subjects = JSON.parse(localStorage.getItem("subjects")) || [];
+    document.querySelectorAll(".day-column").forEach(col => {
+        col.innerHTML = `<strong>${col.id}</strong>`;
+    });
+    subjects.forEach(subject => {
+        let subjectDiv = document.createElement("div");
+        subjectDiv.classList.add("subject");
+        subjectDiv.innerHTML = `
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+                <strong>${subject.name}</strong> (${subject.startTime} - ${subject.endTime})
+                <button class="menu-btn" onclick="toggleMenu(this)" style="background: none; border: none; cursor: pointer;">
+                    <i class="fa-solid fa-ellipsis"></i>
+                </button>
+            </div>
+            <div class="subject-menu" style="display: none; background: #fff; padding: 10px; border-radius: 5px; box-shadow: 0px 0px 5px rgba(0,0,0,0.2); margin-top: 5px;">
+                Lehrer: ${subject.teacher} <br>
+                Raum: ${subject.room} <br>
+                Notizen: ${subject.notes} <br>
+                <button class="delete-btn" data-id="${subject.id}" onclick="deleteSubject('${subject.id}')">Löschen</button>
+            </div>
+        `;
+        document.getElementById(subject.day).appendChild(subjectDiv);
+    });
+    document.querySelectorAll(".delete-btn").forEach(btn => {
+        btn.addEventListener("click", function () {
+            deleteSubject(this.getAttribute("data-id"));
+        });
+    });
+}
+
+// Funktion zum Umschalten des Menüs für jedes Fach
+function toggleMenu(btn) {
+    let menu = btn.parentElement.nextElementSibling;
+    menu.style.display = menu.style.display === "none" ? "block" : "none";
+}
+
+// Funktion zum Löschen eines Fachs
+function deleteSubject(id) {
+    let subjects = JSON.parse(localStorage.getItem("subjects")) || [];
+    subjects = subjects.filter(subject => subject.id != id);
+    localStorage.setItem("subjects", JSON.stringify(subjects));
+    loadSubjects();
+}
+    </script>
+    
+    
+    
+  </main>
+</body>
+</html>

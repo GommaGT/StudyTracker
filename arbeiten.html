@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StudyTracker V2 | Arbeiten</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    
+    <script src="https://kit.fontawesome.com/61b869afa3.js" crossorigin="anonymous"></script>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <h2 class="titleMain">DASHBOARD</h2>
+    </header>
+    <nav>
+    	<div>
+    		<p class="dashboardVariables">0/20</p> <!--- Variable 1 --->
+        	<p class="dashboardVariables">37</p> <!--- Variable 2 --->
+        	<p class="dashboardVariables">300</p> <!--- Variable 3 --->
+        </div>
+        <div>
+        	<p>Desc1</p>
+            <p>Desc2</p>
+            <p>Desc3</p>
+        </div>
+    </nav>
+    
+    <main>
+        <div id="btn-participation">
+            <button id="addParticipation" onclick="" style="background-color: #245a2c; border: 1px solid #014421;">+</button>
+            <button id="remParticipation" onclick="alert('Participation was decreased by 1')" style="background-color: #800E13; border: 1px solid #640D14;"> - </button>
+        </div>
+    </main>
+    
+    <footer>
+    	<div id="pageNavigator">
+            <li><i class="fa-solid fa-chart-line"></i>  <a href="index.html">Home</a></li>
+            <li><i class="fa-regular fa-calendar"></i>  <a href="calendar.html">Calendar</a></li>
+            <li><i class="fa-solid fa-chalkboard-user"></i>  <a href="stundenplan.html">Timetable</a></li>
+            <li><i class="fa-regular fa-pen-to-square"></i>  <a href="#">Exams</a></li>
+            <li><i class="fa-solid fa-sliders"></i>  <a href="einstellungen.html">Settings</a></li>
+        </div>
+    </footer>
+</body>
+</html>

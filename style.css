@@ -1,0 +1,307 @@
+ /* Reset basic styles */
+ * {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Montserrat", serif;
+    font-optical-sizing: auto;
+    font-style: normal;
+  color: black;
+}
+
+body{
+  background-color: #f8f8f8;
+  height: 100% !important;
+}
+
+/* Sidebar Navigation */
+nav {
+  width: 250px;
+  height: 97%;
+  background-color: white;
+  color: black;
+  margin: 2% 0% 2% 2%;
+  padding: 20px;
+  position: fixed;
+  border-radius: 15px;
+}
+nav h2 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.accountInformation{margin-bottom: 25px; text-align: center;}
+
+.accountInformation img{
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  margin-bottom: 5px;
+}
+
+nav ul {
+  list-style: none;
+  padding-left: 0;
+}
+nav ul li {
+  margin-bottom: 20px;
+  margin-left: 65px;
+  text-align: start !important;
+}
+nav ul li a {
+  color: black;
+  text-decoration: none;
+  font-size: 18px;
+}
+
+/* Main Content Area */
+main {
+  margin-left: 250px;
+  padding: 30px;
+}
+
+/* Account Summary */
+section.account-summary {
+  margin-bottom: 30px;
+}
+section.account-summary h3 {
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+.account-cards {
+  display: flex;
+  gap: 20px;
+}
+.card {
+  background-color: #ecf0f1;
+  padding: 20px;
+  border-radius: 8px;
+  width: 45%;
+}
+.card h4 {
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+.card p {
+  font-size: 22px;
+  font-weight: bold;
+}
+
+/* Recent Expenses */
+section.recent-expenses {
+  margin-bottom: 30px;
+}
+section.recent-expenses h3 {
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: #ecf0f1;
+  border-radius: 8px;
+}
+th, td {
+  padding: 15px;
+  text-align: left;
+}
+th {
+  background-color: #34495e;
+  color: white;
+}
+tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+/* Action Buttons */
+section.actions {
+  display: flex;
+  gap: 20px;
+}
+.actions .btn {
+  padding: 15px 30px;
+  background-color: #3498db;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+}
+.actions .btn:hover {
+  background-color: #2980b9;
+}
+
+.titleMain{
+  text-align: center;
+  font-family: "Montserrat", serif;
+    font-optical-sizing: auto;
+    font-style: normal;
+}
+
+#upper-flex{
+  display: flex;
+  justify-content: space-between;
+  padding: 0px 25px;
+  width: 100% !important;
+}
+
+#upper-flex div{
+  width: 50%;
+}
+
+#stats{
+  background-color: white;
+  padding: 10px 10px 10px 25px;
+  margin: 25px 15px 15px 15px;
+  border-radius: 15px;
+  width: 100%;
+  height: 100%;
+}
+
+#stats p{
+  font-size: 18px;
+}
+#stats strong{
+  font-size: 20px;
+}
+
+#line-chart1{
+  background-color: white;
+  padding: 10px;
+  margin: 25px 15px 15px 15px;
+  border-radius: 15px;
+  width: 100%;
+  height: 100%;
+}
+
+
+#lower-flex{
+  display: flex;
+  justify-content: space-between;
+  padding: 0px 25px;
+  width: 100% !important;
+}
+
+#lower-flex div{
+  width: 50%;
+}
+
+#pie-chart1{
+  background-color: white;
+  padding: 10px;
+  margin: 25px 15px 15px 15px;
+  border-radius: 15px;
+  width: 100%;
+  height: 100%;
+}
+
+#quests{
+  background-color: white;
+  padding: 10px;
+  margin: 25px 15px 15px 15px;
+  border-radius: 15px;
+  width: 100%;
+  height: 100%;
+}
+
+#quests div{
+  background-color: #f8f8f8;
+  margin-bottom: 15px;
+  border-radius: 10px;
+  width: 100%;
+  height: 100%;
+}
+
+.QuestContent{
+  width: 65%;
+  align-self: left;
+  text-align: left;
+  padding-left: 20px;
+}
+
+
+#flexMain {
+  display: flex;
+  flex-direction: column; /* Ensures vertical stacking */
+  justify-content: flex-start;
+  align-items: stretch; /* Ensures full width */
+  padding: 0px 25px;
+}
+
+
+.calendar-container {
+  text-align: center;
+  background: white;
+  padding: 30px;
+  border-radius: 8px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+  max-width: 600px;
+  margin: 35px 0px 0px 65px;
+  flex: auto;
+}
+
+.calendar {
+  display: grid;
+  grid-template-rows: auto 1fr;
+  gap: 10px;
+}
+
+.days-of-week, .days {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 8px;
+}
+
+.days-of-week div {
+  font-weight: bold;
+  padding: 15px;
+}
+
+.days div {
+  padding: 20px;
+  text-align: center;
+  border-radius: 5px;
+  color: white;
+  font-weight: bold;
+}
+
+.today {
+  border: 3px solid black;
+}
+
+.weekend {
+  background: #6b6969 !important;
+  color: black !important;
+}
+
+
+#ctrlElements{
+  flex: right;
+  background-color: #2980b9;
+  
+}
+
+
+.menu-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 3px;
+  transition: transform 0.2s ease-in-out;
+}
+.menu-btn:hover {transform: scale(1.2)}
+
+/* Der Container für das Hinzufügen eines Fachs */
+#addSubjectContainer {
+  display: none;  /* Der Block ist unsichtbar */
+  opacity: 0;
+  transition: opacity 0.3s ease; /* Für einen sanften Übergang */
+}
+
+#addSubjectContainer.visible {
+  display: block;  /* Der Block wird angezeigt */
+  opacity: 1;
+}
+
+
+

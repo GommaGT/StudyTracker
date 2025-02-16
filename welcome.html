@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StudyTracker | Dashboard</title>
+    <script src="https://kit.fontawesome.com/61b869afa3.js" crossorigin="anonymous"></script>
+    
+    <style>
+        /* Splash Screen Animation */
+        @keyframes fadeOut {
+            0% { opacity: 1; }
+            100% { opacity: 0; visibility: hidden; }
+        }
+
+        @keyframes loadingWobble {
+            0%, 100% { transform: scaleY(1) translateY(0); }
+            20% { transform: scaleY(1.3) translateY(-5px); }
+            40% { transform: scaleY(0.75) translateY(3px); }
+            60% { transform: scaleY(1.25) translateY(-4px); }
+            80% { transform: scaleY(0.85) translateY(2px); }
+        }
+
+        @keyframes loadingGrow {
+            0% { height: 20px; transform: scaleY(1) translateY(0); opacity: 1; }
+            50% { opacity: 0.5; }
+            100% { height: var(--final-height); transform: scaleY(1) translateY(0); opacity: 1; }
+        }
+
+        @keyframes shrinkAndFade {
+            0% { height: var(--final-height); opacity: 1; }
+            100% { height: 0; opacity: 0; }
+        }
+
+        .splash-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, #245a2c, #014421);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .loading-container {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            align-items: flex-end;
+        }
+
+        .loading-bar {
+            width: 15px;
+            background-color: white;
+            border-radius: 10px;
+            transform-origin: bottom;
+            height: 20px;
+            animation: loadingWobble 1.8s ease-in-out infinite;
+        }
+
+        .bar-1 { animation-delay: 0s; --final-height: 25px; }
+        .bar-2 { animation-delay: 0.2s; --final-height: 40px; }
+        .bar-3 { animation-delay: 0.4s; --final-height: 55px; }
+        .bar-4 { animation-delay: 0.6s; --final-height: 70px; }
+
+        /* Transition to Bar Graph */
+        .loading-container.grow .loading-bar {
+            animation: loadingGrow 1.5s ease-out forwards;
+        }
+
+        /* Shrink and Fade Out Effect */
+        .loading-container.shrink .loading-bar {
+            animation: shrinkAndFade 0.5s ease-out forwards;
+        }
+    </style>
+</head>
+<body>
+    <!-- Splash Screen -->
+    <div class="splash-screen" id="splashScreen">
+        <div class="loading-container" id="loadingBars">
+            <div class="loading-bar bar-1"></div>
+            <div class="loading-bar bar-2"></div>
+            <div class="loading-bar bar-3"></div>
+            <div class="loading-bar bar-4"></div>
+        </div>
+    </div>
+
+    <script>
+        // Let the bars wobble first, then smoothly transition to final growth
+        setTimeout(() => {
+            document.getElementById('loadingBars').classList.add('grow');
+        }, 2000);
+
+        // Keep final graph visible for a while, then shrink and fade out
+        setTimeout(() => {
+            document.getElementById('loadingBars').classList.add('shrink');
+        }, 5000);
+
+        // Hide splash screen after full animation
+        setTimeout(() => {
+            document.getElementById('splashScreen').style.display = 'none';
+            // Redirect to another page after the animation finishes
+            window.location.href = "index.html"; // Change this to your desired destination URL
+        }, 6500);
+    </script>
+</body>
+</html>

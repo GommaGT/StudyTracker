@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <script src="https://kit.fontawesome.com/61b869afa3.js" crossorigin="anonymous"></script>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+
+    <!-- Include Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+
+    <title>StudyTracker V2 | Index</title>
+</head>
+<body>
+    <!-- Sidebar Navigation -->
+    <nav>
+        <h2 class="titleMain">StudyTracker</h2>
+        <div class="accountInformation">
+            <img src="media/icon.png">
+            <p style="font-size: 16px;">Welcome back,</p>
+            <h4 id="username" style="font-size: 19px;">ADMIN</h4>
+        </div>
+        <ul>
+            <li><i class="fa-solid fa-chart-line"></i>  <a href="#">Home</a></li>
+            <li><i class="fa-regular fa-calendar"></i>  <a href="calendar.html">Calendar</a></li>
+            <li><i class="fa-solid fa-chalkboard-user"></i>  <a href="stundenplan.html">Timetable</a></li>
+            <li><i class="fa-regular fa-pen-to-square"></i>  <a href="arbeiten.html">Exams</a></li>
+            <li><i class="fa-solid fa-sliders"></i>  <a href="einstellungen.html">Settings</a></li>
+        </ul>
+    </nav>
+
+    <!-- Main Content Area -->
+    <main id="flexMain">
+        <div id="upper-flex">
+
+            <div id="stats">
+                <h2 class="titleMain" style="margin: 5px 0px 15px 0px;">Dashboard</h2><br/>
+                <p id="average-participation"><strong>Average Participation per Class:</strong> 10/20</p><br/>
+                <p id="total-participations"><strong>Total Participations:</strong> 37</p><br/>
+                <p id="quests-completed"><strong>Quests Completed:</strong> 300</p><br/>
+                <p id="id1"><strong>More Stats:</strong> X</p><br/>
+                <p id="id2"><strong>More Stats:</strong> X</p><br/>
+                <p id="id3"><strong>More Stats:</strong> X</p><br/>
+            </div>
+    
+
+            <!-- Line chart1 -->
+        <div id="line-chart1">
+            <h3 class="titleMain">Participation Trend</h3>
+            <canvas id="lineChart" width="400" height="400"></canvas>
+        </div>
+
+        </div>
+        <div id="lower-flex">
+
+            <!-- Pie Chart -->
+            <div id="pie-chart1">
+                <h3 class="titleMain">Participation Overview</h3>
+                <canvas id="pieChart" width="400" height="400"></canvas>
+            </div>
+
+            <!-- Quests should have an dynamic Background. That means, depending on how much % they are to complete the quest, the background color changes. And that not entirely, but it changes the % of the 100% of the div. Like using a gradient! -->
+            <div id="quests">
+                <h2 class="titleMain" style="margin: 10px 0px 25px 0px;">Quests</h2>
+                <div class="quest">
+                    <h3 class="QuestContent">Quest 1</h3>
+                    <p class="QuestContent">Description 1</p>
+                </div>
+
+                <div class="quest">
+                    <h3 class="QuestContent">Quest 2</h3>
+                    <p class="QuestContent">Description 2</p>
+                </div>
+
+                <div class="quest">
+                    <h3 class="QuestContent">Quest 3</h3>
+                    <p class="QuestContent">Description 3</p>
+                </div>
+
+                <div class="quest">
+                    <h3 class="QuestContent">Quest 4</h3>
+                    <p class="QuestContent">Description 4</p>
+                </div>
+
+                <div class="quest">
+                    <h3 class="QuestContent">Quest 5</h3>
+                    <p class="QuestContent">Description 5</p>
+                </div>
+            </div>
+
+        </div>
+        
+    </main>
+    <script>
+        // Variables for Pie, Bar, and Line charts
+        let dranMeldet = 10; // Example value for Dran/Meldet
+        let maxParticipation = 20; // Total max participation
+        let weeklyParticipation = [5, 7, 6, 8, 4, 5, 6]; // Example weekly participation data (7 days)
+        let participationTrend = [0, 2, 4, 5, 7, 9, 10]; // Example data showing participation trend over time (days or weeks)
+
+        // Function to update Dashboard
+        function updateDashboard() {
+            document.getElementById("dran-meldet").textContent = `${dranMeldet}/20`;
+            document.getElementById("week").textContent = 37;
+            document.getElementById("half-year").textContent = 300;
+            updateCharts();
+        }
+
+        // Function to update all charts
+        function updateCharts() {
+            // Pie Chart Data
+            let pieData = {
+                labels: ["Participated", "Remaining"],
+                datasets: [{
+                    label: "Participation",
+                    data: [dranMeldet, maxParticipation - dranMeldet],
+                    backgroundColor: ["#245a2c", "#ccc"],
+                    borderColor: ["#014421", "#aaa"],
+                    borderWidth: 1
+                }]
+            };
+
+            // Bar Chart Data
+            let barData = {
+                labels: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
+                datasets: [{
+                    label: "Weekly Participation",
+                    data: weeklyParticipation,
+                    backgroundColor: "#245a2c",
+                    borderColor: "#014421",
+                    borderWidth: 1
+                }]
+            };
+
+            // Line Chart Data (Participation Trend)
+            let lineData = {
+                labels: ["Day 1", "Day 2", "Day 3", "Day 4", "Day 5", "Day 6", "Day 7"],
+                datasets: [{
+                    label: "Participation Trend",
+                    data: participationTrend,
+                    fill: false,
+                    borderColor: "#245a2c",
+                    tension: 0.1,
+                    borderWidth: 2
+                }]
+            };
+
+            // Pie Chart Configuration
+            let pieConfig = {
+                type: "pie",
+                data: pieData,
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            position: 'top',
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(tooltipItem) {
+                                    return tooltipItem.label + ': ' + tooltipItem.raw;
+                                }
+                            }
+                        }
+                    }
+                }
+            };
+
+            // Bar Chart Configuration
+            let barConfig = {
+                type: "bar",
+                data: barData,
+                options: {
+                    responsive: true,
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            };
+
+            // Line Chart Configuration
+            let lineConfig = {
+                type: "line",
+                data: lineData,
+                options: {
+                    responsive: true,
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            };
+
+            // Render Pie Chart
+            let pieChart = new Chart(document.getElementById("pieChart"), pieConfig);
+
+            // Render Bar Chart
+            let barChart = new Chart(document.getElementById("barChart"), barConfig);
+
+            // Render Line Chart
+            let lineChart = new Chart(document.getElementById("lineChart"), lineConfig);
+        }
+
+        // Functions for participation buttons
+        function addParticipation() {
+            if (dranMeldet < maxParticipation) {
+                dranMeldet++;
+                updateDashboard(); // Update Dashboard and charts
+            }
+        }
+
+        function remParticipation() {
+            if (dranMeldet > 0) {
+                dranMeldet--;
+                updateDashboard(); // Update Dashboard and charts
+            } else {
+                alert('Participation count cannot go below 0.');
+            }
+        }
+
+        // Initialize the dashboard and charts when the page loads
+        window.onload = updateDashboard;
+    </script>
+</body>
+</html>
